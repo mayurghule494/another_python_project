@@ -16,8 +16,8 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            step {
+        stage('Push Docker Image') {
+            steps {
                 script{
                     sh 'docker login'
                     sh 'docker push twimbit:latest'
