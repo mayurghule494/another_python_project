@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     // Log in to Docker Hub using the credentials
-                    sh "echo '$DOCKERHUB_CREDENTIALS_PSW' | docker login -u '$DOCKERHUB_CREDENTIALS_USR' --password-stdin"
+                    sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
 
                     // Push the Docker image to Docker Hub
                     sh 'docker push mayurghule/twimbit'
