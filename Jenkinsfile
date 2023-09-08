@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Run Docker Container') {
             steps {
-                script {:
+                script {
                     sh 'docker run -d -p 80:80 twimbit:latest '
                     }
                 }
