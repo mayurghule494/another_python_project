@@ -11,9 +11,20 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t twimbit:1.0 .'
+                    sh 'docker build -t twimbit .'
                 }
             }
         }
+
+        stage('Push Docker Image') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
+                    }
+                }
+            }
+        }
+
     }
 }
