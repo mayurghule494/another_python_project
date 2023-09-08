@@ -4,34 +4,33 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                
-                 git branch: 'main', url: 'https://github.com/mayurghule494/another_python_project.git'
+                git branch: 'main', url: 'https://github.com/mayurghule494/another_python_project.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    def imageName = 'twimbit'
-                    def dockerImage = docker.build(imageName, '-f Dockerfile .')
+                    sh 'docker build -t twimbit .'
                 }
             }
         }
 
+        stage('Build Docker Image') {
+            step {
+                script{
+                    sh 'docker login'
+                    sh 'docker push twimbit:latest'
+                }
+            }
+
+        }
         stage('Run Docker Container') {
             steps {
-                script {
-                    def portMapping = '80:80'
-                    def containerName = 'twimbit-app'
-                    
-                    dockerImage.inside("-p ${portMapping} --name ${containerName}") {
-              
-                        // start  Nginx
-                        sh 'nginx -g "daemon off;"'
+                script {:
+                    sh 'docker run -d -p 80:80 twimbit:latest '
                     }
                 }
             }
         }
     }
-}
-
