@@ -1,10 +1,10 @@
 pipeline {
     agent any
 
-    environment {
+environment {
         DOCKERHUB_CREDENTIALS_USR = credentials('Dockerhub_user').username
         DOCKERHUB_CREDENTIALS_PSW = credentials('Dockerhub_PSW').password
-    }
+}
 
     stages {
         stage('Checkout') {
