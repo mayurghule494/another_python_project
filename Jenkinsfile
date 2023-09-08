@@ -15,22 +15,4 @@ pipeline {
                 }
             }
         }
-
-        stage('Push Docker Image') {
-            steps {
-                script{
-                    sh 'docker login'
-                    sh 'docker push twimbit:latest'
-                }
-            }
-
-        }
-        stage('Run Docker Container') {
-            steps {
-                script {
-                    sh 'docker run -d -p 80:80 twimbit:latest '
-                    }
-                }
-            }
-        }
     }
