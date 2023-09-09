@@ -25,4 +25,5 @@ RUN ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
 # Expose port 80 for Nginx
 EXPOSE 80
 
+CMD ["nginx", "-g", "daemon off;"]
 CMD ["python", "app.py"]
