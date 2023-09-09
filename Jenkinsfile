@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_REGISTRY = 'https://hub.docker.com/'
+        DOCKERHUB_CREDENTIALS = credentials('DOCKERHUB_CREDENTIALS')
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -17,13 +21,16 @@ pipeline {
             }
         }
         
-        stage('Login and Push') {      	
-            steps{                       	
-	            sh 'echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin'                		
-	                echo 'Login Completed' 
-                    sh 'docker push mayurghule/twimbit'   
-                    sh 'docker logout'  
-            }           
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Authenticate with the Docker registry using credentials
+                    docker.withRegistry("${DOCKER_REGISTRY}", "${DOCKERHUB_CREDENTIALS}") {
+                        // Push the Docker image to the registry
+                        dockerImage.push()
+                    }
+                }
+            }
         }
     }
 }
