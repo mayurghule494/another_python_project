@@ -19,7 +19,7 @@ pipeline {
         
         stage('Login and Push') {      	
             steps{                       	
-	            sh 'echo $DOCKERHUB_PASS | sudo docker login -u $DOCKERHUB_USER --password-stdin'                		
+	            sh 'echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin'                		
 	                echo 'Login Completed' 
                     sh 'docker push mayurghule/twimbit'   
                     sh 'docker logout'  
