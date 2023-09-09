@@ -16,18 +16,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Login and Push') {
-            steps {
-                script {
-                    // Log in to Docker Hub using the credentials
-                    sh 'docker login -u mayurghule -p Happy@12345'
-
-                    // Push the Docker image to Docker Hub
-                    sh 'docker push mayurghule/twimbit'
-                }
-            }
-        }
         
         stage('Login and Push') {      	
             steps{                       	
