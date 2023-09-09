@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image and tag it appropriately
-                    sh 'docker run -d -p 80:80 twimbit:latest'
+                    sh 'docker run -d -p 80:80 twimbit'
                 }
             }
         }
