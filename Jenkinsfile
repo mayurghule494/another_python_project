@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_REGISTRY = 'https://hub.docker.com/'
-        DOCKERHUB_CREDENTIALS = credentials('DOCKERHUB_CREDENTIALS')
+        registryCredential = 'twimbit-dockerhub'
     }
     stages {
         stage('Checkout') {
@@ -22,12 +21,10 @@ pipeline {
         }
         
         stage('Push Docker Image') {
-            steps {
+            steps{
                 script {
-                    // Authenticate with the Docker registry using credentials
-                    docker.withRegistry("${DOCKER_REGISTRY}", "${DOCKERHUB_CREDENTIALS}") {
-                        // Push the Docker image to the registry
-                        dockerImage.push()
+                    docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push('latest')
                     }
                 }
             }
